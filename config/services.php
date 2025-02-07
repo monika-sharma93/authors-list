@@ -30,5 +30,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'api_base_url' => env('API_BASE_URL'),
+    'api_username' => env('API_USERNAME'),
+    'api_password' => env('API_PASSWORD'),
+
+
 
 ];
