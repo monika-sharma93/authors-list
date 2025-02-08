@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         $response = $this->candidateApi->login($credentials);
         if (isset($response['token_key'])) {
-            return redirect()->route('authors.index')->with('success', 'Login successful!');
+            return redirect()->route('profile')->with('success', 'Login successful!');
         }
         return redirect()->route('login')->with('error', 'Invalid login credentials');
     }

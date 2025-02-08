@@ -89,7 +89,7 @@ class CandidateApiService
             Session::put('access_token', $data['token_key']);
             Session::put('refresh_token', $data['refresh_token_key']); // Store refresh token
             Session::put('token_expiry', $data["expires_at"]);
-
+            Session::put('user', $data["user"]);
             return $data;
         }
 
