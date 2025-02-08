@@ -77,11 +77,11 @@ class CandidateApiService
      *
      * @return array
      */
-    public function login()
+    public function login(array $credentials)
     {
         $response = Http::post("{$this->apiUrl}/token", [
-            'email' => config('services.api_username'),
-            'password' => config('services.api_password'),
+            'email' => $credentials['email'],
+            'password' => $credentials['password'],
         ]);
 
         if ($response->successful()) {

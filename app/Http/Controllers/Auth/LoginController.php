@@ -18,12 +18,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $response = $this->candidateApi->login();
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $response = $this->candidateApi->login($credentials);
         if (isset($response['token_key'])) {
             return redirect()->route('authors.index')->with('success', 'Login successful!');
         }
-        return view('auth.login');
-
+        return redirect()->route('login')->with('error', 'Invalid login credentials');
     }
 
     public function logout()

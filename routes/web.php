@@ -22,7 +22,7 @@ use App\Http\Middleware\CheckApiToken;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/login', function () {

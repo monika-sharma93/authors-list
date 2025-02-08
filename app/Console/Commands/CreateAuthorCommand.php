@@ -22,17 +22,29 @@ class CreateAuthorCommand extends Command
 
     public function handle()
     {
-        $firstName = $this->ask('first_name');
-        $lastName = $this->ask('last_name');
+        $email = $this->ask('Enter Email address:');
+        $password = $this->ask('Enter Password:');
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->error('Invalid email format.');
+            return;
+        }
+
+        $getToken = $this->candidateApi->login(['email'=>$email,'password'=>$password]);
+
+        if (isset($getToken['error'])) {
+            $this->error('Invalid email password');
+            return;
+        }
+
+        $firstName = $this->ask('Please enter author first name:');
+        $lastName = $this->ask('Please enter author last name');
         $birthday = "2025-02-07T20:28:18.241Z";
-        $biography = $this->ask('biography');
+        $biography = $this->ask('Please enter biography');
         $gender = $this->choice('Select Gender', ['male', 'female'], 1);
-        $placeOfBirth = $this->ask('place_of_birth');
-
-        $getToken = $this->candidateApi->login();
-
-        Session::put('access_token', $getToken['token_key']);
-
+        $placeOfBirth = $this->ask('Place of birth');
+       
+       
 
         // Call the service
         $response = $this->candidateApi->createAuthor($firstName, $lastName, $birthday, $biography, $gender, $placeOfBirth);
